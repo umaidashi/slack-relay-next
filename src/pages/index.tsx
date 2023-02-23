@@ -1,6 +1,6 @@
 import React from "react";
-import ChannelList from "@/components/pages/ChannelList";
+import Page from "@/components/pages/Page";
 
 export default function Home() {
-  return <ChannelList />;
+  return <Page />;
 }

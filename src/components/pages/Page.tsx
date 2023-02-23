@@ -12,7 +12,7 @@ type DataType = {
   members: {}[];
 };
 
-export default function ChannelMessagesPage() {
+export default function Page() {
   const router = useRouter();
   const channelId = router.query.channelId as string;
   const replyTs = router.query.ts as string;
@@ -49,10 +49,16 @@ export default function ChannelMessagesPage() {
     isLoading: messageIsLoading,
   } = useSWR<any>(`${ENDPOINT}channel/${channelId}`, axios);
 
-  const showThread = (threadTs: string) => {
+  const goThread = (threadTs: string) => {
     router.push({
-      pathname: `/${channelId}`,
-      query: { ts: threadTs },
+      pathname: `/`,
+      query: { channelId: channelId, ts: threadTs },
+    });
+  };
+  const goChannel = (channelId: string) => {
+    router.push({
+      pathname: `/`,
+      query: { channelId: channelId },
     });
   };
 
@@ -69,11 +75,19 @@ export default function ChannelMessagesPage() {
     console.log("changed data!!", data);
   });
 
-  if (!data.messages) return <>loading</>;
-
   return (
     <>
       <div style={{ display: "flex" }}>
+        <div>
+          {data.channels &&
+            data.channels.map((channel: any) => (
+              <div key={channel.id}>
+                <button onClick={() => goChannel(channel.id)}>
+                  {channel.name}
+                </button>
+              </div>
+            ))}
+        </div>
         <div
           style={{
             display: "flex",
@@ -83,16 +97,17 @@ export default function ChannelMessagesPage() {
             marginRight: "32px",
           }}
         >
-          {data.messages.map((m: any) => (
-            <div key={m.ts}>
-              <div>{m.text}</div>
-              {m.thread_ts && (
-                <button onClick={() => showThread(m.thread_ts)}>
-                  スレッド
-                </button>
-              )}
-            </div>
-          ))}
+          {data.messages &&
+            data.messages.map((m: any) => (
+              <div key={m.ts}>
+                <div>{m.text}</div>
+                {m.thread_ts && (
+                  <button onClick={() => goThread(m.thread_ts)}>
+                    スレッド
+                  </button>
+                )}
+              </div>
+            ))}
         </div>
         {replyTs && <Replies channelId={channelId} replyTs={replyTs} />}
       </div>
