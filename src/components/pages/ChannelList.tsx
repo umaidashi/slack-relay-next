@@ -19,8 +19,10 @@ export default function ChannelList() {
     axios
   );
 
-  if (!data) return <>Loading</>;
-  const result = data.data.channels.sort(function (a: any, b: any) {
+
+  console.log(data)
+  if (!data?.data.channels) return <>Loading</>;
+  const result = data?.data?.channels?.sort(function (a: any, b: any) {
     return a.name < b.name ? -1 : 1; //オブジェクトの昇順ソート
   });
   return (
