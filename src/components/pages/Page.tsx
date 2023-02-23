@@ -6,7 +6,7 @@ import useSWR from "swr";
 const ENDPOINT = process.env.ENDPOINT;
 
 type DataType = {
-  channels: {}[];
+  channels: { name: string }[];
   users: {}[];
   messages: {}[];
   members: {}[];
@@ -75,39 +75,57 @@ export default function Page() {
     console.log("changed data!!", data);
   });
 
+  console.log();
+
   return (
     <>
       <div style={{ display: "flex" }}>
         <div>
-          {data.channels &&
-            data.channels.map((channel: any) => (
-              <div key={channel.id}>
-                <button onClick={() => goChannel(channel.id)}>
-                  {channel.name}
-                </button>
-              </div>
-            ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column-reverse",
-            paddingRight: "32px",
-            borderRight: "1px solid #333333",
-            marginRight: "32px",
-          }}
-        >
-          {data.messages &&
-            data.messages.map((m: any) => (
-              <div key={m.ts}>
-                <div>{m.text}</div>
-                {m.thread_ts && (
-                  <button onClick={() => goThread(m.thread_ts)}>
-                    スレッド
+          {data.channels ? (
+            <>
+              {data.channels.map((channel: any) => (
+                <div key={channel.id}>
+                  <button onClick={() => goChannel(channel.id)}>
+                    {channel.name}
                   </button>
-                )}
-              </div>
-            ))}
+                </div>
+              ))}
+            </>
+          ) : (
+            <>Loading</>
+          )}
+        </div>
+        <div>
+          <h1>
+            {data.channels &&
+              data.channels.find((d: any) => d.id === channelId)?.name}
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column-reverse",
+              paddingRight: "32px",
+              borderRight: "1px solid #333333",
+              marginRight: "32px",
+            }}
+          >
+            {data.messages ? (
+              <>
+                {data.messages.map((m: any) => (
+                  <div key={m.ts}>
+                    <div>{m.text}</div>
+                    {m.thread_ts && (
+                      <button onClick={() => goThread(m.thread_ts)}>
+                        スレッド
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>Loading</>
+            )}
+          </div>
         </div>
         {replyTs && <Replies channelId={channelId} replyTs={replyTs} />}
       </div>
