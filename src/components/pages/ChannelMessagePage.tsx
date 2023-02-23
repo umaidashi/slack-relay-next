@@ -83,7 +83,7 @@ export default function ChannelMessagesPage() {
             marginRight: "32px",
           }}
         >
-          {messages.data.messages.map((m: any) => (
+          {data.messages.map((m: any) => (
             <div key={m.ts}>
               <div>{m.text}</div>
               {m.thread_ts && (
