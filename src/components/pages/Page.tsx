@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import useSWR from "swr";
+import Sidebar from "../layouts/Sidebar";
+import Layout from "../layouts/Layout";
 
 const ENDPOINT = process.env.ENDPOINT;
 
-type DataType = {
+export type DataType = {
   channels: { name: string }[];
   users: {}[];
   messages: {}[];
@@ -47,7 +49,7 @@ export default function Page() {
     data: messages,
     error: messageError,
     isLoading: messageIsLoading,
-  } = useSWR<any>(`${ENDPOINT}channel/${channelId}`, axios);
+  } = useSWR<any>(channelId ? `${ENDPOINT}channel/${channelId}` : null, axios);
 
   const goThread = (threadTs: string) => {
     router.push({
@@ -78,23 +80,8 @@ export default function Page() {
   console.log();
 
   return (
-    <>
+    <Layout data={data}>
       <div style={{ display: "flex" }}>
-        <div>
-          {data.channels ? (
-            <>
-              {data.channels.map((channel: any) => (
-                <div key={channel.id}>
-                  <button onClick={() => goChannel(channel.id)}>
-                    {channel.name}
-                  </button>
-                </div>
-              ))}
-            </>
-          ) : (
-            <>Loading</>
-          )}
-        </div>
         <div>
           <h1>
             {data.channels &&
@@ -129,7 +116,7 @@ export default function Page() {
         </div>
         {replyTs && <Replies channelId={channelId} replyTs={replyTs} />}
       </div>
-    </>
+    </Layout>
   );
 }
 
