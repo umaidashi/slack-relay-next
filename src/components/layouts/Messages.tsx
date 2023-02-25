@@ -42,11 +42,15 @@ export default function Messages(props: any) {
       <div className={styles.messagesHeader}>
         <div className={styles.messagesHeaderInline}>
           <div className={styles.channelNameContaienr}>
-            <span className={styles.channelIconContainer}></span>
-            <span className={styles.channelName}>
+            <div className={styles.icon}>
+              <svg>
+                <use xlinkHref={"/icons/hashtag.svg#hashtag"} />
+              </svg>
+            </div>
+            <div className={styles.channelName}>
               {data.channels &&
                 data.channels.find((d: any) => d.id === channelId)?.name}
-            </span>
+            </div>
           </div>
           <div>メンバー</div>
         </div>

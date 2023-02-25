@@ -49,12 +49,10 @@
   height: 100%;
   overflow-y: scroll;
 }
+
 .channelItem {
   height: 28px;
   line-height: 28px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding: 0 12px;
   border-radius: 4px;
   color: colors.$theme-text;
@@ -62,9 +60,12 @@
   &:hover {
     background: colors.$hovered_item;
     color: colors.$hovered_text;
-    .channelName {
-      display: inline-block;
+    .channelNameContainer {
       animation: scrollText 10s linear infinite;
+      .channelName {
+        white-space: nowrap;
+        overflow: visible;
+        }
     }
   }
   & + .selected {
@@ -73,7 +74,25 @@
   }
 }
 
+.channelNameContainer {
+  display: flex;
+}
+.icon {
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  min-height: 14px;
+  margin-right: 4px;
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: colors.$theme-text;
+  }
+}
 .channelName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 15px;
 }
 

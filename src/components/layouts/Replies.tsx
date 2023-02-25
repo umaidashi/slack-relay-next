@@ -33,27 +33,38 @@ export default function Replies(props: any) {
         <div className={styles.repliesHeaderInline}>
           <div className={styles.leftContainer}>
             <div className={styles.repliesText}>スレッド</div>
-            <div className={styles.channelName}>
-              {data.channels &&
-                data.channels.find((d: any) => d.id === channelId)?.name}
+            <div className={styles.channelNameContainer}>
+              <div className={styles.icon}>
+                <svg>
+                  <use xlinkHref={"/icons/hashtag-light.svg#hashtag-light"} />
+                </svg>
+              </div>
+              <div className={styles.channelName}>
+                {data.channels &&
+                  data.channels.find((d: any) => d.id === channelId)?.name}
+              </div>
             </div>
           </div>
           <div className={styles.rightContainer}>
             <div className={styles.closeButton} onClick={closeThread}>
-              閉じる
+              <svg>
+                <use xlinkHref={"/icons/xmark.svg#xmark"} />
+              </svg>
             </div>
           </div>
         </div>
       </div>
-      {replies ? (
-        <div className={styles.repliesBody}>
-          {replies.data.replies.map((r: any) => (
-            <div key={r.ts}>{r.text}</div>
-          ))}
-        </div>
-      ) : (
-        <div>Loading</div>
-      )}
+      <div className={styles.repliesBody}>
+        {replies ? (
+          <div>
+            {replies.data.replies.map((r: any) => (
+              <div key={r.ts}>{r.text}</div>
+            ))}
+          </div>
+        ) : (
+          <div>Loading</div>
+        )}
+      </div>
     </div>
   );
 }

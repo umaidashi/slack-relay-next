@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 export default function Sidebar(props: any) {
   const channels = props.data.channels;
-  const team = props.data.team
+  const team = props.data.team;
   const router = useRouter();
   const channelId = router.query.channelId as string;
 
@@ -31,11 +31,22 @@ export default function Sidebar(props: any) {
             <div>
               {channels.map((c: any) => (
                 <div
-                  className={`${styles.channelItem} ${channelId === c.id && styles.selected}`}
+                  className={`${styles.channelItem} ${
+                    channelId === c.id && styles.selected
+                  }`}
                   key={c.id}
                   onClick={() => goChannel(c.id)}
                 >
-                  <span className={styles.channelName}>{c.name}</span>
+                  <div className={styles.channelNameContainer}>
+                    <div className={styles.icon}>
+                      <svg>
+                        <use
+                          xlinkHref={"/icons/hashtag-light.svg#hashtag-light"}
+                        />
+                      </svg>
+                    </div>
+                    <div className={styles.channelName}>{c.name}</div>
+                  </div>
                 </div>
               ))}
             </div>
