@@ -55,18 +55,25 @@ export default function Page() {
   } = useSWR<any>(`${ENDPOINT}users`, axios);
 
   const {
-    data: messages,
+    data: messagesData,
     error: messageError,
     isLoading: messageIsLoading,
   } = useSWR<any>(channelId ? `${ENDPOINT}channel/${channelId}` : null, axios);
+
+  const messages = messagesData?.data?.messages?.sort(function (
+    a: any,
+    b: any
+  ) {
+    return a.ts < b.ts ? -1 : 1; //オブジェクトの昇順ソート
+  });
 
   useEffect(() => {
     setData({
       team: team?.data?.team,
       channels: channels,
       users: users?.data.users,
-      messages: messages?.data?.messages,
-      members: messages?.data?.members,
+      messages: messages,
+      members: messagesData?.data?.members,
     });
   }, [channels, messages, users]);
 

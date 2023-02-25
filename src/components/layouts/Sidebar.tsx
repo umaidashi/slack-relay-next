@@ -25,7 +25,7 @@ export default function Sidebar(props: any) {
         </div>
       </div>
       <div className={styles.sidebarRight}>
-        <div className={styles.workspaceName}>{team.name}</div>
+        <div className={styles.workspaceName}>{team ? team.name : ""}</div>
         <div className={styles.channelList}>
           {channels ? (
             <div>

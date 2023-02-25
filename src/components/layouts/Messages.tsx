@@ -1,13 +1,35 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { DataType } from "../pages/Page";
 import styles from "@/styles/components/layouts/Messages.module.scss";
+import { channel } from "diagnostics_channel";
 
 export default function Messages(props: any) {
   const router = useRouter();
 
   const data: DataType = props.data;
   const channelId: string = props.channelId;
+
+  // スクロール下固定
+  const ref = useRef<HTMLDivElement>(null);
+  const scroll = () => {
+    ref?.current?.scrollIntoView();
+  };
+  const [refTiming, setRefTiming] = useState({
+    isFirst: true,
+    lastChannelId: channelId,
+  });
+  if (data.messages !== undefined && data?.messages?.length !== 0) {
+    if (refTiming.isFirst) {
+      setRefTiming({ isFirst: false, lastChannelId: channelId });
+    }
+  }
+  useEffect(() => {
+    if (channelId !== refTiming.lastChannelId) {
+      setRefTiming({ isFirst: true, lastChannelId: channelId });
+    }
+    scroll();
+  }, [refTiming.isFirst, channelId]);
 
   const goThread = (threadTs: string) => {
     router.push({
@@ -21,8 +43,7 @@ export default function Messages(props: any) {
       <div className={styles.messagesHeader}>
         <div className={styles.messagesHeaderInline}>
           <div className={styles.channelNameContaienr}>
-            <span className={styles.channelIconContainer}>
-            </span>
+            <span className={styles.channelIconContainer}></span>
             <span className={styles.channelName}>
               {data.channels &&
                 data.channels.find((d: any) => d.id === channelId)?.name}
@@ -45,6 +66,7 @@ export default function Messages(props: any) {
                 )}
               </div>
             ))}
+            <div ref={ref}></div>
           </>
         ) : (
           <>{channelId ? <>Loading</> : <>チャンネルを選択</>}</>
