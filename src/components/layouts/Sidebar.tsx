@@ -3,9 +3,8 @@ import styles from "@/styles/components/layouts/Sidebar.module.scss";
 import { useRouter } from "next/router";
 
 export default function Sidebar(props: any) {
-  const data = props.data;
+  const channels = props.data;
   const router = useRouter();
-  if (!data) return <>Loading</>;
 
   const goChannel = (channelId: string) => {
     router.push({
@@ -16,9 +15,29 @@ export default function Sidebar(props: any) {
 
   return (
     <div className={styles.sidebarContainer}>
-      {data.map((d: any) => (
-        <div key={d.id} onClick={() => goChannel(d.id)}>{d.name}</div>
-      ))}
+      <div className={styles.sidebarLeft}>
+        <div className={styles.workspaceList}>ワークスペースリスト</div>
+      </div>
+      <div className={styles.sidebarRight}>
+        <div className={styles.workspaceName}>ワークスペース名</div>
+        <div className={styles.channelList}>
+          {channels ? (
+            <div>
+              {channels.map((c: any) => (
+                <div
+                  className={styles.channelItem}
+                  key={c.id}
+                  onClick={() => goChannel(c.id)}
+                >
+                  {c.name}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div>Loading</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

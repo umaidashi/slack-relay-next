@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  height: 100%;
+  margin: none;
+  padding: none;
+  * {
+    margin: none;
+    padding: none;
+  }
+}
+
+.header {
+  height: 32px;
+  background: yellow;
+  border: 1px solid black;
+}
+
+.body {
+  display: flex;
+  background: gray;
+  border: 1px solid black;
+}

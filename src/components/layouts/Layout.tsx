@@ -5,11 +5,13 @@ import { DataType } from "../pages/Page";
 
 export default function Layout(props: any) {
   const data: DataType = props.data;
-  const channels = data?.channels ? data.channels : [];
   return (
-    <div className={styles.sidebarContainer}>
-      <Sidebar data={channels} />
-      {props.children}
+    <div className={styles.container}>
+      <div className={styles.header}>Header</div>
+      <div className={styles.body}>
+        <Sidebar data={data.channels} />
+        {props.children}
+      </div>
     </div>
   );
 }
