@@ -81,11 +81,12 @@ export default function Page() {
     console.log("changed data!!", data);
   });
 
-
   return (
     <Layout data={data}>
       <Messages data={data} channelId={channelId} />
-      {threadTs && <Replies channelId={channelId} threadTs={threadTs} data={data} />}
+      {threadTs && (
+        <Replies channelId={channelId} threadTs={threadTs} data={data} />
+      )}
     </Layout>
   );
 }
