@@ -15,6 +15,7 @@ export default function Messages(props: any) {
       query: { channelId: channelId, threadTs: threadTs },
     });
   };
+
   return (
     <div className={styles.messagesContainer}>
       <div className={styles.messagesHeader}>

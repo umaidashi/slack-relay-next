@@ -9,7 +9,7 @@ export default function Layout(props: any) {
     <div className={styles.container}>
       <div className={styles.header}>Slack log viewer ver.2</div>
       <div className={styles.body}>
-        <Sidebar data={data.channels} />
+        <Sidebar data={data} />
         {props.children}
       </div>
     </div>

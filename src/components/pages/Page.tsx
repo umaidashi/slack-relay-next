@@ -9,6 +9,7 @@ import Replies from "../layouts/Replies";
 const ENDPOINT = process.env.ENDPOINT;
 
 export type DataType = {
+  team: {};
   channels: { name: string }[];
   users: {}[];
   messages: {}[];
@@ -21,11 +22,18 @@ export default function Page() {
   const threadTs = router.query.thread_ts as string;
 
   const [data, setData] = useState<DataType>({
+    team: {},
     channels: [],
     users: [],
     messages: [],
     members: [],
   });
+
+  const {
+    data: team,
+    error: teamError,
+    isLoading: teamIsLoading,
+  } = useSWR<any>(`${ENDPOINT}team`, axios);
 
   const {
     data: channelsData,
@@ -54,6 +62,7 @@ export default function Page() {
 
   useEffect(() => {
     setData({
+      team: team?.data?.team,
       channels: channels,
       users: users?.data.users,
       messages: messages?.data?.messages,

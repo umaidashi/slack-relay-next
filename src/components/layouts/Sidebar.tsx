@@ -3,7 +3,8 @@ import styles from "@/styles/components/layouts/Sidebar.module.scss";
 import { useRouter } from "next/router";
 
 export default function Sidebar(props: any) {
-  const channels = props.data;
+  const channels = props.data.channels;
+  const team = props.data.team
   const router = useRouter();
   const channelId = router.query.channelId as string;
 
@@ -24,7 +25,7 @@ export default function Sidebar(props: any) {
         </div>
       </div>
       <div className={styles.sidebarRight}>
-        <div className={styles.workspaceName}>ワークスペース名</div>
+        <div className={styles.workspaceName}>{team.name}</div>
         <div className={styles.channelList}>
           {channels ? (
             <div>
