@@ -1,0 +1,50 @@
+@use "../../utilities/colors.scss" as colors;
+
+.repliesContainer {
+  position: relative;
+  width: 80%;
+  height: calc(100vh - 32px);
+  overflow-y: hidden;
+  background: colors.$bg;
+  color: colors.$text;
+  border-left: 1px solid colors.$border;
+}
+
+.repliesHeader {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  align-items: center;
+  height: 50px;
+  padding: 0 20px;
+  border-bottom: 1px solid colors.$border;
+  background: colors.$bg;
+}
+
+.repliesHeaderInline {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .leftContainer {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.repliesText {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+.channelName {
+  font-size: 13px;
+}
+
+.repliesBody {
+  padding: 70px 20px 20px;
+  height: 100%;
+  overflow-y: scroll;
+}

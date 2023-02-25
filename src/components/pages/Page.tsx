@@ -19,7 +19,7 @@ export type DataType = {
 export default function Page() {
   const router = useRouter();
   const channelId = router.query.channelId as string;
-  const threadTs = router.query.thread_ts as string;
+  const threadTs = router.query.threadTs as string;
 
   const [data, setData] = useState<DataType>({
     team: {},
@@ -81,10 +81,11 @@ export default function Page() {
     console.log("changed data!!", data);
   });
 
+
   return (
     <Layout data={data}>
       <Messages data={data} channelId={channelId} />
-      {threadTs && <Replies channelId={channelId} threadTs={threadTs} />}
+      {threadTs && <Replies channelId={channelId} threadTs={threadTs} data={data} />}
     </Layout>
   );
 }
