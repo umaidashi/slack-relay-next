@@ -1,17 +1,74 @@
 .sidebarContainer {
   display: flex;
-  width: 400px;
-  height: 100vh;
-  overflow-y: scroll;
+  width: auto;
+  height: calc(100vh - 32px);
+  overflow-y: hidden;
   background: #eee;
 }
 
 .sidebarLeft {
+  width: 52px;
+  border-right: 1px solid #333;
 }
 .workspaceList {
+  margin: 0 11px;
+}
+.workspaceItem {
+  width: 30px;
+  height: 30px;
+  background: #999;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin: 16px 0;
 }
 
 .sidebarRight {
+  width: 180px;
+}
+.workspaceName {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 16px;
+  line-height: 44px;
+  font-size: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 0.5px solid #333;
 }
 .channelList {
+  margin: 10px 4px;
+  height: 100%;
+  overflow-y: scroll;
+}
+.channelItem {
+  height: 28px;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 12px;
+  border-radius: 4px;
+  &:hover {
+    background: #fff;
+    .channelName {
+      display: inline-block;
+      animation: scrollText 10s linear infinite;
+    }
+  }
+}
+
+.channelName {
+  font-size: 15px;
+}
+
+@keyframes scrollText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }

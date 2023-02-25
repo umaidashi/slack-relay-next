@@ -16,7 +16,11 @@ export default function Sidebar(props: any) {
   return (
     <div className={styles.sidebarContainer}>
       <div className={styles.sidebarLeft}>
-        <div className={styles.workspaceList}>ワークスペースリスト</div>
+        <div className={styles.workspaceList}>
+          <div className={styles.workspaceItem}></div>
+          <div className={styles.workspaceItem}></div>
+          <div className={styles.workspaceItem}></div>
+        </div>
       </div>
       <div className={styles.sidebarRight}>
         <div className={styles.workspaceName}>ワークスペース名</div>
@@ -29,7 +33,7 @@ export default function Sidebar(props: any) {
                   key={c.id}
                   onClick={() => goChannel(c.id)}
                 >
-                  {c.name}
+                  <span className={styles.channelName}>{c.name}</span>
                 </div>
               ))}
             </div>
