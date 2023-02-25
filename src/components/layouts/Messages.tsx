@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DataType } from "../pages/Page";
 import styles from "@/styles/components/layouts/Messages.module.scss";
-import { channel } from "diagnostics_channel";
 
 export default function Messages(props: any) {
   const router = useRouter();
@@ -12,7 +11,7 @@ export default function Messages(props: any) {
 
   // スクロール下固定
   const ref = useRef<HTMLDivElement>(null);
-  const scroll = () => {
+  const toBottom = () => {
     ref?.current?.scrollIntoView();
   };
   const [refTiming, setRefTiming] = useState({
@@ -28,7 +27,7 @@ export default function Messages(props: any) {
     if (channelId !== refTiming.lastChannelId) {
       setRefTiming({ isFirst: true, lastChannelId: channelId });
     }
-    scroll();
+    toBottom();
   }, [refTiming.isFirst, channelId]);
 
   const goThread = (threadTs: string) => {
@@ -52,7 +51,10 @@ export default function Messages(props: any) {
           <div>メンバー</div>
         </div>
       </div>
-      <div className={styles.messagesInfo}>info</div>
+      {/* <div className={styles.messagesInfo}>info</div> */}
+      <div className={styles.toLatestMessage} onClick={toBottom}>
+        最新メッセージ
+      </div>
       <div className={styles.messagesBody}>
         {data.messages ? (
           <>

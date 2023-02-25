@@ -58,6 +58,7 @@
   padding: 0 12px;
   border-radius: 4px;
   color: colors.$theme-text;
+  cursor: pointer;
   &:hover {
     background: colors.$hovered_item;
     color: colors.$hovered_text;

@@ -51,6 +51,23 @@
   border-bottom: 1px solid colors.$border;
   background: colors.$bg;
 }
+.toLatestMessage {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  border-radius: 16px;
+  background: colors.$selected_item;
+  color: colors.$selected_text;
+  font-size: 12px;
+  box-shadow: 0 1px 6px 1px #999;
+  cursor: pointer;
+}
 
 .messagesBody {
   padding: 0 20px;
