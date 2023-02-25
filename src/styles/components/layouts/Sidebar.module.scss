@@ -1,15 +1,17 @@
+@use "../../utilities/colors.scss" as colors;
+
 .sidebarContainer {
   display: flex;
   min-width: 250px;
   width: auto;
   height: calc(100vh - 32px);
   overflow-y: hidden;
-  background: #aaa;
+  background: colors.$sidebar_bg;
 }
 
 .sidebarLeft {
   width: 52px;
-  border-right: 1px solid #333;
+  border-right: 1px solid colors.$border;
 }
 .workspaceList {
   margin: 0 11px;
@@ -39,10 +41,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-bottom: 0.5px solid #333;
+  color: colors.$theme-text;
+  border-bottom: 0.5px solid colors.$border;
 }
 .channelList {
-  margin: 10px 4px;
+  margin: 10px 8px;
   height: 100%;
   overflow-y: scroll;
 }
@@ -54,12 +57,18 @@
   text-overflow: ellipsis;
   padding: 0 12px;
   border-radius: 4px;
+  color: colors.$theme-text;
   &:hover {
-    background: #fff;
+    background: colors.$hovered_item;
+    color: colors.$hovered_text;
     .channelName {
       display: inline-block;
       animation: scrollText 10s linear infinite;
     }
+  }
+  & + .selected {
+    background: colors.$selected_item;
+    color: colors.$selected_text;
   }
 }
 

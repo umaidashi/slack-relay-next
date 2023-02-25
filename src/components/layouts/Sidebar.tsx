@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 export default function Sidebar(props: any) {
   const channels = props.data;
   const router = useRouter();
+  const channelId = router.query.channelId as string;
 
   const goChannel = (channelId: string) => {
     router.push({
@@ -29,7 +30,7 @@ export default function Sidebar(props: any) {
             <div>
               {channels.map((c: any) => (
                 <div
-                  className={styles.channelItem}
+                  className={`${styles.channelItem} ${channelId === c.id && styles.selected}`}
                   key={c.id}
                   onClick={() => goChannel(c.id)}
                 >

@@ -1,3 +1,5 @@
+@use "../../utilities/colors.scss" as colors;
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -11,13 +13,16 @@
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 32px;
-  background: yellow;
-  border: 1px solid black;
+  background: colors.$topbar_bg;
+  color: colors.$topbar_text;
+  border-bottom: 1px solid colors.$border;
 }
 
 .body {
   display: flex;
-  background: gray;
-  border: 1px solid black;
+  background: colors.$bg;
 }

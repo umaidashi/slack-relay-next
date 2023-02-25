@@ -7,7 +7,7 @@ export default function Layout(props: any) {
   const data: DataType = props.data;
   return (
     <div className={styles.container}>
-      <div className={styles.header}>Header</div>
+      <div className={styles.header}>Slack log viewer ver.2</div>
       <div className={styles.body}>
         <Sidebar data={data.channels} />
         {props.children}
