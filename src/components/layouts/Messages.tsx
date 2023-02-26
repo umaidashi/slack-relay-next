@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { DataType } from "../pages/Page";
 import styles from "@/styles/components/layouts/Messages.module.scss";
+import Message from "@/components/messages/Message";
+import { channel } from "diagnostics_channel";
 
 export default function Messages(props: any) {
-  const router = useRouter();
-
   const data: DataType = props.data;
   const channelId: string = props.channelId;
 
@@ -29,13 +29,6 @@ export default function Messages(props: any) {
     }
     toBottom();
   }, [refTiming.isFirst, channelId]);
-
-  const goThread = (threadTs: string) => {
-    router.push({
-      pathname: `/`,
-      query: { channelId: channelId, threadTs: threadTs },
-    });
-  };
 
   return (
     <div className={styles.messagesContainer}>
@@ -63,14 +56,12 @@ export default function Messages(props: any) {
         {data.messages ? (
           <>
             {data.messages.map((m: any) => (
-              <div key={m.ts}>
-                <div>{m.text}</div>
-                {m.thread_ts && (
-                  <button onClick={() => goThread(m.thread_ts)}>
-                    スレッド
-                  </button>
-                )}
-              </div>
+              <Message
+                key={m.ts}
+                data={m}
+                users={data.users}
+                channelId={channelId}
+              />
             ))}
             <div ref={ref}></div>
           </>
