@@ -118,7 +118,7 @@ export default function Message(props: any) {
             >
               <div className={styles.replyUserIconContainer}>
                 {message.reply_users?.map((u: any) => (
-                  <div>
+                  <div key={u}>
                     {userCheck(u)?.profile.image_original ? (
                       <img
                         className={styles.replyUserIcon}
