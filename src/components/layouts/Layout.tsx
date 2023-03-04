@@ -6,7 +6,7 @@ import { DataType } from "../pages/Page";
 const PASS = process.env.PASS;
 
 export default function Layout(props: any) {
-  const [auth, setAuth] = useState<boolean>(true);
+  const [auth, setAuth] = useState<boolean>(false);
   const data: DataType = props.data;
 
   useEffect(() => {

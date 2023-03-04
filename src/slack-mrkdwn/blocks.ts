@@ -37,6 +37,9 @@ const richTextSection = (elements: any[], users: any[]) => {
       case "broadcast":
         result += `<span class="mentionRange">@${element.range}</span>`;
         return;
+      case "emoji":
+        result += `<span class="emoji">&#x${element.unicode};</span>`.replace(/-/g, ";&#x");
+        return;
       case "link":
         result += `<a target=_blank href="${element.url}" class="link">${
           element.text ? textStyle(element) : element.url
