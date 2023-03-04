@@ -3,6 +3,7 @@ import useSWR from "swr";
 import axios from "axios";
 import styles from "@/styles/components/layouts/Replies.module.scss";
 import { useRouter } from "next/router";
+import Message from "../messages/Message";
 
 const ENDPOINT = process.env.ENDPOINT;
 
@@ -58,7 +59,13 @@ export default function Replies(props: any) {
         {replies ? (
           <div>
             {replies.data.replies.map((r: any) => (
-              <div key={r.ts}>{r.text}</div>
+              <Message
+                key={r.ts}
+                data={r}
+                users={data.users}
+                channelId={channelId}
+                isThread={true}
+              />
             ))}
           </div>
         ) : (

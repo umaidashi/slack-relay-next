@@ -6,15 +6,17 @@ import { DataType } from "../pages/Page";
 const PASS = process.env.PASS;
 
 export default function Layout(props: any) {
-  const [auth, setAuth] = useState<boolean>(false);
+  const [auth, setAuth] = useState<boolean>(true);
   const data: DataType = props.data;
 
   useEffect(() => {
-    const result = window.prompt("password");
-    if (result === PASS) {
-      setAuth(true);
-    } else {
-      alert("パスワードが違います。");
+    if (!auth) {
+      const result = window.prompt("password");
+      if (result === PASS) {
+        setAuth(true);
+      } else {
+        alert("パスワードが違います。");
+      }
     }
   }, []);
   return (
