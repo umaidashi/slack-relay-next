@@ -1,5 +1,3 @@
-declare var document: Document;
-
 export const blocksToHTML = (blocks: any[], users: any[]) => {
   let result: string = "";
   blocks?.forEach((block) => {
@@ -32,18 +30,17 @@ const richTextSection = (elements: any[], users: any[]) => {
         result += textStyle(element);
         return;
       case "user":
-        result += `<span className={styles.mention}>@${userCheck(
-          element.user_id,
-          users
-        )}</span>`;
+        result += `<a href="/?userId=${
+          element.user_id
+        }" class="mention">@${userCheck(element.user_id, users)}</a>`;
         return;
       case "broadcast":
-        result += `<span className={styles.mention}>@${element.range}</span>`;
+        result += `<span class="mentionRange">@${element.range}</span>`;
         return;
       case "link":
-        result += `<a href="${element.url}" className={styles.link}>${textStyle(
-          element
-        )}</a>`;
+        result += `<a href="${element.url}" class="link">${
+          element.text ? textStyle(element) : element.url
+        }</a>`;
         return;
     }
   });
@@ -54,21 +51,17 @@ const richTextSection = (elements: any[], users: any[]) => {
 
 const textStyle = (element: any) => {
   let result: string = "";
-  console.log(element);
+  // console.log(element);
   if (element.style) {
     const style = element.style;
     if (style.bold)
-      result += `<span className={styles.bold}>${brCheck(element.text)}</span>`;
+      result += `<span class="bold">${brCheck(element.text)}</span>`;
     if (style.italic)
-      result += `<span className={styles.italic}>${brCheck(
-        element.text
-      )}</span>`;
+      result += `<span class="italic">${brCheck(element.text)}</span>`;
     if (style.strike)
-      result += `<span className={styles.strike}>${brCheck(
-        element.text
-      )}</span>`;
+      result += `<span class="strike">${brCheck(element.text)}</span>`;
     if (style.code)
-      result += `<span className={styles.code}>${brCheck(element.text)}</span>`;
+      result += `<span class="code">${brCheck(element.text)}</span>`;
   } else {
     result += `<span>${brCheck(element.text)}</span>`;
   }
@@ -80,5 +73,13 @@ const brCheck = (text: string) => {
 };
 
 const userCheck = (user_id: string, users: any[]) => {
-  return users?.filter((user) => user.id === user_id)[0].profile.display_name;
+  // console.log(
+  //   users?.filter((user) => user.id === user_id)[0].profile.display_name
+  // );
+  const userName = users?.filter((user) => user.id === user_id)[0].profile
+    .display_name
+    ? users?.filter((user) => user.id === user_id)[0].profile.display_name
+    : users?.filter((user) => user.id === user_id)[0].profile.real_name;
+
+  return userName;
 };

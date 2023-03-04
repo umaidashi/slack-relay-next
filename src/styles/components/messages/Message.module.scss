@@ -1,1 +1,87 @@
 @use "../../utilities/colors.scss" as colors;
+
+.messageContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.author {
+  margin-right: 8px;
+}
+
+.authorIcon {
+  width: 36px;
+  height: 36px;
+  margin-top: 6px;
+  border-radius: 3px;
+}
+
+.noAuthorIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: lightgray;
+  border-radius: 3px;
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// .rightBox
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.authorName {
+  font-size: 14px;
+  font-weight: bold;
+}
+.timestamp {
+  font-size: 12px;
+  color: #616061;
+  margin-left: 6px;
+}
+
+.content {
+  font-size: 14px;
+}
+
+.threadButton {
+  display: flex;
+  align-items: center;
+}
+
+.replyUserIcon {
+  width: 24px;
+  height: 24px;
+  margin-top: 6px;
+  border-radius: 3px;
+}
+
+.noReplyUserIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: lightgray;
+  border-radius: 3px;
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.threadInfo {
+  margin: 5px 0 0 8px;
+  font-size: 13px;
+  color: #1264a3;
+  line-height: 24px;
+  font-weight: 500;
+}
