@@ -76,6 +76,12 @@ export default function Message(props: any) {
 
   return (
     <div className={styles.container}>
+      {message.root && isThread && (
+        <div className={styles.root}>
+          　　　#チャンネルにも投稿済み
+          {/* <span className={styles.rootMessage}>{message.root.text}</span> */}
+        </div>
+      )}
       <div className={styles.messageContainer}>
         <div className={styles.author}>
           {author?.profile.image_original ? (
