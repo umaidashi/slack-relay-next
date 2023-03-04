@@ -12,7 +12,7 @@ export default function Message(props: any) {
 
   const elements: string = blocksToHTML(message.blocks as [], users);
 
-  // console.log(message.thread_ts && message);
+  console.log(message);
 
   const author = users?.filter((user: any) => user.id === message.user)?.[0];
 
@@ -106,18 +106,51 @@ export default function Message(props: any) {
             </span>
             <span className={styles.timestamp}>{getDate(message.ts)}</span>
           </div>
+          {message.root && (
+            <div className={styles.root}>
+              このスレッドに返信しました：
+              <span className={styles.rootMessage}>{message.root.text}</span>
+            </div>
+          )}
           <div
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: elements }}
           ></div>
           {message.files && <div className={styles.files}>files</div>}
-          {message.thread_ts && !isThread && (
+          {message.thread_ts && !isThread && !message.root && (
             <div
               className={styles.threadButton}
               onClick={() => goThread(message.thread_ts)}
             >
               <div className={styles.replyUserIconContainer}>
-                {message.reply_users?.map((u: any) => (
+                {[
+                  ...Array(
+                    message.reply_users?.length < 3
+                      ? message.reply_users?.length
+                      : 3
+                  ),
+                ].map((_: any, i: number) => (
+                  <div key={i}>
+                    {userCheck(message.reply_users?.[i])?.profile
+                      .image_original ? (
+                      <img
+                        className={styles.replyUserIcon}
+                        src={
+                          userCheck(message.reply_users?.[i]).profile
+                            .image_original
+                        }
+                        alt={userCheck(message.reply_users?.[i]).name}
+                      />
+                    ) : (
+                      <div className={styles.noReplyUserIcon}>
+                        <svg>
+                          <use xlinkHref={"/icons/user.svg#user"} />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {/* {message.reply_users?.map((u: any, i: number) => (
                   <div key={u}>
                     {userCheck(u)?.profile.image_original ? (
                       <img
@@ -133,10 +166,18 @@ export default function Message(props: any) {
                       </div>
                     )}
                   </div>
-                ))}
+                ))} */}
               </div>
               <div className={styles.threadInfo}>
                 {message.reply_count}件の返信
+              </div>
+              <div className={styles.timestamp}>
+                {getDate(message.latest_reply)}
+              </div>
+              <div className={styles.openButton}>
+                <svg>
+                  <use xlinkHref={"/icons/right.svg#right"} />
+                </svg>
               </div>
             </div>
           )}

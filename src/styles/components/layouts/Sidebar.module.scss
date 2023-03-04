@@ -3,6 +3,7 @@
 .sidebarContainer {
   display: flex;
   min-width: 250px;
+  max-width: 300px;
   width: auto;
   height: calc(100vh - 32px);
   overflow-y: hidden;
@@ -26,7 +27,8 @@
 }
 
 .sidebarRight {
-  min-width: 180px;
+  min-width: 150px;
+  flex-grow: 1;
   width: 100%;
 }
 .workspaceName {
@@ -65,7 +67,7 @@
       .channelName {
         white-space: nowrap;
         overflow: visible;
-        }
+      }
     }
   }
   & + .selected {
