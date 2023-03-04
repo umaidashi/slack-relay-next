@@ -38,7 +38,7 @@ const richTextSection = (elements: any[], users: any[]) => {
         result += `<span class="mentionRange">@${element.range}</span>`;
         return;
       case "link":
-        result += `<a href="${element.url}" class="link">${
+        result += `<a target=_blank href="${element.url}" class="link">${
           element.text ? textStyle(element) : element.url
         }</a>`;
         return;

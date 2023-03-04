@@ -67,6 +67,13 @@ export default function Message(props: any) {
     });
   };
 
+  const goUser = (userId: string) => {
+    router.push({
+      pathname: `/`,
+      query: { userId: userId },
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.messageContainer}>
@@ -76,9 +83,13 @@ export default function Message(props: any) {
               className={styles.authorIcon}
               src={author?.profile.image_original}
               alt={author?.name}
+              onClick={() => goUser(author?.id)}
             />
           ) : (
-            <div className={styles.noAuthorIcon}>
+            <div
+              className={styles.noAuthorIcon}
+              onClick={() => goUser(author?.id)}
+            >
               <svg>
                 <use xlinkHref={"/icons/user.svg#user"} />
               </svg>
@@ -87,7 +98,10 @@ export default function Message(props: any) {
         </div>
         <div className={styles.rightBox}>
           <div className={styles.authorInfo}>
-            <span className={styles.authorName}>
+            <span
+              className={styles.authorName}
+              onClick={() => goUser(author?.id)}
+            >
               {authorName(author) ? authorName(author) : "loading..."}
             </span>
             <span className={styles.timestamp}>{getDate(message.ts)}</span>
