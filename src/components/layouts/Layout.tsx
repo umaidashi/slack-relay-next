@@ -6,7 +6,7 @@ import { DataType } from "../pages/Page";
 const PASS = process.env.PASS;
 
 export default function Layout(props: any) {
-  const [auth, setAuth] = useState<boolean>(false);
+  const [auth, setAuth] = useState<boolean>(true);
   const data: DataType = props.data;
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Layout(props: any) {
         alert("パスワードが違います。");
       }
     }
-  }, []);
+  }, [auth]);
   return (
     <>
       {auth ? (
