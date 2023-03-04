@@ -106,7 +106,7 @@ export default function Message(props: any) {
             </span>
             <span className={styles.timestamp}>{getDate(message.ts)}</span>
           </div>
-          {message.root && (
+          {message.root && !isThread && (
             <div className={styles.root}>
               このスレッドに返信しました：
               <span className={styles.rootMessage}>{message.root.text}</span>
@@ -117,6 +117,7 @@ export default function Message(props: any) {
             dangerouslySetInnerHTML={{ __html: elements }}
           ></div>
           {message.files && <div className={styles.files}>files</div>}
+          {message.reaction && <div>hoge</div>}
           {message.thread_ts && !isThread && !message.root && (
             <div
               className={styles.threadButton}

@@ -123,10 +123,10 @@ const brCheck = (text: string) => {
 };
 
 const userCheck = (user_id: string, users: any[]) => {
-  const userName = users?.filter((user) => user.id === user_id)[0].profile
+  const userName = users?.filter((user) => user.id === user_id)[0]?.profile
     .display_name
-    ? users?.filter((user) => user.id === user_id)[0].profile.display_name
-    : users?.filter((user) => user.id === user_id)[0].profile.real_name;
+    ? users?.filter((user) => user.id === user_id)[0]?.profile.display_name
+    : users?.filter((user) => user.id === user_id)[0]?.profile.real_name;
 
   return userName;
 };
