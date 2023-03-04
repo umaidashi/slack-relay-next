@@ -25,7 +25,6 @@ export default function Message(props: any) {
   const getDate = (ts: string) => {
     const today = new Date();
     const DATE = new Date(Number(ts) * 1000);
-    console.log(DATE, DATE.getDate());
     const year = String(DATE.getFullYear());
     const month = String(DATE.getUTCMonth() + 1);
     const day = String(DATE.getDate());
@@ -36,7 +35,7 @@ export default function Message(props: any) {
     const diff = today.getTime() - DATE.getTime();
     const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor(diff / (1000 * 60 * 24));
-    const diffMinutes = Math.floor(diff / (1000 * 24));
+    const diffMinutes = Math.floor(diff / (1000 * 60));
 
     let diffText = "";
 
@@ -47,7 +46,7 @@ export default function Message(props: any) {
     } else if (diffHours > 1) {
       diffText += `${diffHours}時間前`;
     } else {
-      diffText += `${diffMinutes}分前`
+      diffText += `${diffMinutes}分前`;
     }
 
     const days = ["日", "月", "火", "水", "木", "金", "土"];
@@ -55,7 +54,6 @@ export default function Message(props: any) {
     return `${diffText} | ${year}/${month}/${day}(${
       days[date]
     }) ${hours}:${minutes.padStart(2, "0")}`;
-    // return `${date.getHours()}:${date.getMinutes()}`;
   };
 
   const goThread = (threadTs: string) => {
