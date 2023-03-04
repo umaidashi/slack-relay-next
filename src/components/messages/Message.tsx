@@ -16,6 +16,10 @@ export default function Message(props: any) {
 
   const author = users?.filter((user: any) => user.id === message.user)?.[0];
 
+  const userCheck = (userId: string) => {
+    return users?.filter((user: any) => user.id === userId)?.[0];
+  };
+
   const authorName = (author: any) => {
     return author?.profile?.real_name;
   };
@@ -98,19 +102,25 @@ export default function Message(props: any) {
               className={styles.threadButton}
               onClick={() => goThread(message.thread_ts)}
             >
-              {author?.profile.image_original ? (
-                <img
-                  className={styles.replyUserIcon}
-                  src={author?.profile.image_original}
-                  alt={author?.name}
-                />
-              ) : (
-                <div className={styles.noReplyUserIcon}>
-                  <svg>
-                    <use xlinkHref={"/icons/user.svg#user"} />
-                  </svg>
-                </div>
-              )}
+              <div className={styles.replyUserIconContainer}>
+                {message.reply_users?.map((u: any) => (
+                  <div>
+                    {userCheck(u).profile.image_original ? (
+                      <img
+                        className={styles.replyUserIcon}
+                        src={userCheck(u).profile.image_original}
+                        alt={userCheck(u).name}
+                      />
+                    ) : (
+                      <div className={styles.noReplyUserIcon}>
+                        <svg>
+                          <use xlinkHref={"/icons/user.svg#user"} />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
               <div className={styles.threadInfo}>
                 {message.reply_count}件の返信
               </div>

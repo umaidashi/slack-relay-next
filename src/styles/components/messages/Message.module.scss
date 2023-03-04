@@ -1,8 +1,14 @@
 @use "../../utilities/colors.scss" as colors;
 
+.container {
+  padding: 8px 20px;
+  &:hover {
+    background: #f7f7f8;
+  }
+}
+
 .messageContainer {
   display: flex;
-  margin-bottom: 10px;
 }
 
 .author {
@@ -50,18 +56,36 @@
 
 .content {
   font-size: 14px;
+  margin-bottom: 4px;
 }
 
 .threadButton {
   display: flex;
   align-items: center;
+  width: auto;
+  margin-bottom: 4px;
+  padding: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  &:hover {
+    background: #fff;
+    border: 1px solid #dadcda;
+  }
+}
+
+.replyUserIconContainer {
+  display: flex;
+  max-width: 60%;
+  height: 24px;
+  overflow-x: hidden;
 }
 
 .replyUserIcon {
   width: 24px;
   height: 24px;
-  margin-top: 6px;
   border-radius: 3px;
+  margin-right: 4px;
 }
 
 .noReplyUserIcon {
@@ -72,6 +96,7 @@
   height: 24px;
   background: lightgray;
   border-radius: 3px;
+  margin-right: 4px;
   svg {
     width: 16px;
     height: 16px;
@@ -79,7 +104,7 @@
 }
 
 .threadInfo {
-  margin: 5px 0 0 8px;
+  margin: 0px 0 0 8px;
   font-size: 13px;
   color: #1264a3;
   line-height: 24px;
