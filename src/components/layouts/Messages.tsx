@@ -28,7 +28,7 @@ export default function Messages(props: any) {
       setRefTiming({ isFirst: true, lastChannelId: channelId });
     }
     toBottom();
-  }, [refTiming.isFirst, channelId]);
+  }, [refTiming.isFirst, refTiming.lastChannelId, channelId]);
 
   return (
     <div className={styles.messagesContainer}>
