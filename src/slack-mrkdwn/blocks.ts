@@ -19,6 +19,52 @@ const elementFLG = (element: any, users: any[]) => {
   const type = element.type;
   if (type === "rich_text_section")
     result += richTextSection(element.elements, users);
+  if (type === "rich_text_list") result += richTextList(element, users);
+  if (type === "rich_text_preformatted")
+    result += richTextPreformatted(element);
+  if (type === "rich_text_quote") result += richTextQuote(element);
+  return result;
+};
+
+const richTextList = (element: any, users: any[]) => {
+  let result: string = "";
+  if (element.style === "ordered") {
+    result += `<ol class='ordered border${element.border}'>`;
+  } else {
+    result += `<ul class='bullet border${element.border}'>`;
+  }
+  element.elements?.forEach((e: { indent: any; elements: any[] }) => {
+    result += `<li class='indent${element.indent}'>${richTextSection(
+      e.elements,
+      users
+    )} </li>`;
+  });
+  if (element.style === "ordered") {
+    result += "</ol>";
+  } else {
+    result += "</ul>";
+  }
+
+  return result;
+};
+
+const richTextPreformatted = (element: any) => {
+  let result: string = "";
+  result += `<div class='preformatted border${element.border}'>`;
+  element.elements?.forEach((e: any) => {
+    result += brCheck(e.text);
+  });
+  result += "</div>";
+  return result;
+};
+
+const richTextQuote = (element: any) => {
+  let result: string = "";
+  result += "<div class='quote'>";
+  element.elements?.forEach((e: any) => {
+    result += textStyle(e);
+  });
+  result += "</div>";
   return result;
 };
 
@@ -38,7 +84,10 @@ const richTextSection = (elements: any[], users: any[]) => {
         result += `<span class="mentionRange">@${element.range}</span>`;
         return;
       case "emoji":
-        result += `<span class="emoji">&#x${element.unicode};</span>`.replace(/-/g, ";&#x");
+        result += `<span class="emoji">&#x${element.unicode};</span>`.replace(
+          /-/g,
+          ";&#x"
+        );
         return;
       case "link":
         result += `<a target=_blank href="${element.url}" class="link">${
@@ -48,13 +97,11 @@ const richTextSection = (elements: any[], users: any[]) => {
     }
   });
 
-  // console.log("result", result);
   return result;
 };
 
 const textStyle = (element: any) => {
   let result: string = "";
-  // console.log(element);
   if (element.style) {
     const style = element.style;
     if (style.bold)
@@ -76,9 +123,6 @@ const brCheck = (text: string) => {
 };
 
 const userCheck = (user_id: string, users: any[]) => {
-  // console.log(
-  //   users?.filter((user) => user.id === user_id)[0].profile.display_name
-  // );
   const userName = users?.filter((user) => user.id === user_id)[0].profile
     .display_name
     ? users?.filter((user) => user.id === user_id)[0].profile.display_name

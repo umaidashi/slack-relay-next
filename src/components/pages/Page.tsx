@@ -77,9 +77,9 @@ export default function Page() {
     });
   }, [channels, messages, users]);
 
-  useEffect(() => {
-    console.log("changed data!!", data);
-  });
+  // useEffect(() => {
+  //   console.log("changed data!!", data);
+  // });
 
   return (
     <Layout data={data}>

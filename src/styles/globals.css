@@ -66,3 +66,65 @@ a {
   margin: 0 2px;
   font-size: 18px;
 }
+
+.border1 {
+  border-left: 4px solid #ddd;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding-left: 20px;
+}
+li {
+  padding: 2px 0;
+}
+.indent1 {
+  margin-left: 28px;
+}
+.indent2 {
+  margin-left: 56px;
+}
+.indent3 {
+  margin-left: 84px;
+}
+.indent4 {
+  margin-left: 112px;
+}
+
+ol .indent1 {
+  list-style: lower-latin;
+}
+ol .indent2 {
+  list-style: lower-roman;
+}
+ol .indent4 {
+  list-style: lower-latin;
+}
+
+ul .indent1 {
+  list-style: circle;
+}
+ul .indent2 {
+  list-style: square;
+}
+ul .indent4 {
+  list-style: circle;
+}
+
+.preformatted {
+  padding: 8px;
+  margin: 4px 0;
+  background: rgba(29, 28, 29, 0.04);
+  border: 1px solid rgba(29, 28, 29, 0.04);
+  font-size: 12px;
+  border-radius: 4px;
+}
+.preformatted.border1 {
+  margin-left: 12px;
+}
+
+.quote {
+  border-left: 4px solid #ddd;
+  padding-left: 8px;
+}

@@ -12,7 +12,7 @@ export default function Message(props: any) {
 
   const elements: string = blocksToHTML(message.blocks as [], users);
 
-  console.log(message.thread_ts && message);
+  // console.log(message.thread_ts && message);
 
   const author = users?.filter((user: any) => user.id === message.user)?.[0];
 
