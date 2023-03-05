@@ -26,7 +26,7 @@ export default function Message(props: any) {
 
   // console.log(users);
 
-  const getDate = (ts: string) => {
+  const getDate = (ts: string, onlyDiff?: boolean) => {
     const today = new Date();
     const DATE = new Date(Number(ts) * 1000);
     const year = String(DATE.getFullYear());
@@ -38,26 +38,32 @@ export default function Message(props: any) {
 
     const diff = today.getTime() - DATE.getTime();
     const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const diffHours = Math.floor(diff / (1000 * 60 * 24));
+    const diffHours = Math.floor(diff / (1000 * 60 * 60));
     const diffMinutes = Math.floor(diff / (1000 * 60));
 
     let diffText = "";
 
+    console.log(diffDays, diffHours, diffMinutes);
+
     if (diffDays > 30) {
       diffText += `${Math.floor(diffDays / 30)}ヶ月前`;
-    } else if (diffDays > 1) {
+    } else if (diffDays < 30 && diffHours >= 24) {
       diffText += `${diffDays}日前`;
-    } else if (diffHours > 1) {
+    } else if (diffHours < 24) {
       diffText += `${diffHours}時間前`;
-    } else {
+    } else if (diffMinutes < 60) {
       diffText += `${diffMinutes}分前`;
     }
 
     const days = ["日", "月", "火", "水", "木", "金", "土"];
 
-    return `${diffText} | ${year}/${month}/${day}(${
-      days[date]
-    }) ${hours}:${minutes.padStart(2, "0")}`;
+    if (onlyDiff) {
+      return diffText;
+    } else {
+      return `${diffText} | ${year}/${month}/${day}(${
+        days[date]
+      }) ${hours}:${minutes.padStart(2, "0")}`;
+    }
   };
 
   const goThread = (threadTs: string) => {
@@ -179,7 +185,7 @@ export default function Message(props: any) {
                 {message.reply_count}件の返信
               </div>
               <div className={styles.timestamp}>
-                {getDate(message.latest_reply)}
+                最終返信: {getDate(message.latest_reply, true)}
               </div>
               <div className={styles.openButton}>
                 <svg>
