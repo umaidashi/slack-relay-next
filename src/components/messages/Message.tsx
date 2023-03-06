@@ -12,7 +12,7 @@ export default function Message(props: any) {
 
   const elements: string = blocksToHTML(message.blocks as [], users);
 
-  console.log(message);
+  console.log(message.reactions);
 
   const author = users?.filter((user: any) => user.id === message.user)?.[0];
 
@@ -42,8 +42,6 @@ export default function Message(props: any) {
     const diffMinutes = Math.floor(diff / (1000 * 60));
 
     let diffText = "";
-
-    console.log(diffDays, diffHours, diffMinutes);
 
     if (diffDays > 30) {
       diffText += `${Math.floor(diffDays / 30)}ヶ月前`;
@@ -83,10 +81,7 @@ export default function Message(props: any) {
   return (
     <div className={styles.container}>
       {message.root && isThread && (
-        <div className={styles.root}>
-          　　　#チャンネルにも投稿済み
-          {/* <span className={styles.rootMessage}>{message.root.text}</span> */}
-        </div>
+        <div className={styles.root}>　　　#チャンネルにも投稿済み</div>
       )}
       <div className={styles.messageContainer}>
         <div className={styles.author}>
@@ -163,23 +158,6 @@ export default function Message(props: any) {
                     )}
                   </div>
                 ))}
-                {/* {message.reply_users?.map((u: any, i: number) => (
-                  <div key={u}>
-                    {userCheck(u)?.profile.image_original ? (
-                      <img
-                        className={styles.replyUserIcon}
-                        src={userCheck(u).profile.image_original}
-                        alt={userCheck(u).name}
-                      />
-                    ) : (
-                      <div className={styles.noReplyUserIcon}>
-                        <svg>
-                          <use xlinkHref={"/icons/user.svg#user"} />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                ))} */}
               </div>
               <div className={styles.threadInfo}>
                 {message.reply_count}件の返信
